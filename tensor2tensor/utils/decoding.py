@@ -37,7 +37,7 @@ from tensor2tensor.utils import contrib
 from tensor2tensor.utils import hparam
 from tensor2tensor.utils import mlperf_log
 from tensor2tensor.utils import registry
-import tensorflow as tf
+import tensorflow.compat.v1 as tf
 
 FLAGS = tf.flags.FLAGS
 
@@ -97,7 +97,9 @@ def decode_hparams(overrides=""):
       # Used for MLPerf compliance logging.
       mlperf_decode_step=0.0,
       mlperf_threshold=25.0,
-      mlperf_success=False)
+      mlperf_success=False,
+      # A comma-delimited list of additional infer() outputs to be exported.
+      export_extra_infer_outputs="")
   hp.parse(overrides)
   return hp
 

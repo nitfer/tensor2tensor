@@ -46,7 +46,7 @@ from tensor2tensor.utils import quantization
 from tensor2tensor.utils import registry
 from tensor2tensor.utils import scheduled_sampling
 
-import tensorflow as tf
+import tensorflow.compat.v1 as tf
 
 from tensorflow.python.layers import base
 from tensorflow.python.ops import inplace_ops
@@ -1743,6 +1743,10 @@ class T2TModel(base.Layer):
     export_out = {"outputs": predictions["outputs"]}
     if "scores" in predictions:
       export_out["scores"] = predictions["scores"]
+
+    if decode_hparams.get("export_extra_infer_outputs"):
+      for output in decode_hparams.export_extra_infer_outputs.split(","):
+        export_out[output] = infer_out[output]
 
     # Necessary to rejoin examples in the correct order with the Cloud ML Engine
     # batch prediction API.

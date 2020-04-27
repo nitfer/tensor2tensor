@@ -22,7 +22,7 @@ import os
 import numpy as np
 import six
 from six.moves import zip  # pylint: disable=redefined-builtin
-import tensorflow as tf
+import tensorflow.compat.v1 as tf
 
 flags = tf.flags
 FLAGS = flags.FLAGS
@@ -114,4 +114,4 @@ def main(_):
 
 
 if __name__ == "__main__":
-  tf.compat.v1.app.run()
+  tf.app.run()
